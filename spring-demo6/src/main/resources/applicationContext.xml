@@ -29,8 +29,8 @@
             <aop:before method="log1" pointcut="execution(void com.nick.spring.service.UserServiceImpl.saveUser())"></aop:before>
             <aop:after-returning method="log2" pointcut="execution(void com.nick.spring.service.UserServiceImpl.saveUser())"></aop:after-returning>
             <aop:after method="log3" pointcut="execution(void com.nick.spring.service.UserServiceImpl.saveUser())"></aop:after>
-            <!--<aop:after-throwing method="log4" pointcut="execution(void com.nick.spring.service.UserServiceImpl.saveUser())"></aop:after-throwing>-->
-            <aop:around method="log4" pointcut="execution(void com.nick.spring.service.UserServiceImpl.saveUser())"></aop:around>
+            <aop:after-throwing method="log4" pointcut="execution(void com.nick.spring.service.UserServiceImpl.saveUser())"></aop:after-throwing>
+            <aop:around method="log5" pointcut="execution(void com.nick.spring.service.UserServiceImpl.saveUser())"></aop:around>
         </aop:aspect>
     </aop:config>
 
