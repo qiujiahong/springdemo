@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--组件扫描器 主要是用来扫码带有指定注解的类-->
+    <!--<context:component-scan base-package="com.nick.spring.service" />-->
+
+    <!--配置目标对象-->
+    <bean class="com.nick.spring.service.UserServiceImpl"></bean>
+
+    <!--配置通知-->
+    <bean  id="myAdvice" class="com.nick.spring.advice.MyAdvice"></bean>
+
+    <!--配置切面 AOP -->
+    <aop:config>
+        <!-- 配置Aop切面，切面是由通知(myAdvice)和切入点组成 -->
+        <!--before 前置通知-->
+        <!--method 增强类中的方法-->
+        <!--pointcut 连接点-->
+        <aop:aspect ref="myAdvice">
+            <aop:before method="log1" pointcut="execution(void com.nick.spring.service.UserServiceImpl.saveUser())"></aop:before>
+            <aop:after-returning method="log2" pointcut="execution(void com.nick.spring.service.UserServiceImpl.saveUser())"></aop:after-returning>
+            <aop:after method="log3" pointcut="execution(void com.nick.spring.service.UserServiceImpl.saveUser())"></aop:after>
+            <!--<aop:after-throwing method="log4" pointcut="execution(void com.nick.spring.service.UserServiceImpl.saveUser())"></aop:after-throwing>-->
+            <aop:around method="log4" pointcut="execution(void com.nick.spring.service.UserServiceImpl.saveUser())"></aop:around>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
