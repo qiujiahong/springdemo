@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+// 1 直接使用JdbcTemplate
 public class TestJdbcTemplate {
     @Test
     public void test() {

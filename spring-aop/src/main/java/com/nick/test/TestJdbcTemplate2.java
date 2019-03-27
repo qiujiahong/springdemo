@@ -9,16 +9,20 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.annotation.Resource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+// 使用spring 管理链接,简化 JdbcTemplate的使用
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring.xml")
 public class TestJdbcTemplate2 {
 
-    @Autowired
+    @Autowired  //按类型注入
     private JdbcTemplate jdbcTemplate;
+//    @Resource
+//    private JdbcTemplate template;
 
     @Test
     public void test() {
