@@ -33,9 +33,9 @@
 
 	<!--配置 AccountDao 和AccountService -->
 	<context:component-scan
-		base-package="com.nick.service"></context:component-scan>
+		base-package="com.nick.spring.service"></context:component-scan>
 
-	<bean id="accountDao" class="com.nick.dao.AccountDaoImpl">
+	<bean id="accountDao" class="com.nick.spring.dao.AccountDaoImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 

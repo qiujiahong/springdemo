@@ -5,5 +5,5 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!--spring ioc基于 xml配置，主要是通过bean标签进行管理-->
-    <bean id="userService" class="com.nick.spring.service.UserServiceImpl"></bean>
+    <bean id="userService" class="UserServiceImpl"></bean>
 </beans>
