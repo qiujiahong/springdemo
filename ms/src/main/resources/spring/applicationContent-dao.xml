@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 配置数据源 -->
+    <bean id="dataSource"
+          class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <!-- set方法注入属性，和类中的成员属性无关，和set方法名称有关，比如有个属性叫username，但是set方法：setName -->
+        <property name="driverClassName"
+                  value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql:///kkb" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
+    <!-- 配置SqlSectionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--注入dataSource-->
+        <property name="dataSource" ref="dataSource"></property>
+        <!--mybatis批量别名配置-->
+        <property name="typeAliasesPackage" value="com.nick.spring.domain"></property>
+    </bean>
+    <!-- 配置Mapper代理对象一: MapperFactoryBean -->
+    <bean id="accountMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+        <property name="mapperInterface" value="com.nick.spring.mapper.AccountMapper"></property>
+    </bean>
+    <!-- 配置Mapper代理对象一: MapperScannerConfigurer -->
+    <!--批量代理对象的生成-->
+    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+        <!--&lt;!&ndash;指定需要生成的接口所在的包名&ndash;&gt;-->
+        <!--<property name="basePackage" value="com.nick.spring.mapper"></property>-->
+        <!--&lt;!&ndash;错误配置 不要配置sqlSessionFactory&ndash;&gt;-->
+    <!--</bean>-->
+</beans>
