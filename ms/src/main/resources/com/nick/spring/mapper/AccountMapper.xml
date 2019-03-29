@@ -5,10 +5,10 @@
 <mapper namespace="com.nick.spring.mapper.AccountMapper">
     <!--查询-->
     <select id="queryMoney" parameterType="string" resultType="double">
-    select money from account where name = #{name}
+    SELECT money FROM account WHERE name = #{name}
   </select>
     <!--修改-->
     <update id="update" parameterType="map">
-        update  account set money =#{money} WHERE name =#{name}
+        UPDATE account SET money = #{money} WHERE name = #{name}
     </update>
 </mapper>
