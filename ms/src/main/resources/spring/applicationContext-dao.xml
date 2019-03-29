@@ -35,15 +35,15 @@
 
 
     <!-- 配置Mapper代理对象一: MapperFactoryBean -->
-    <bean id="accountMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
-        <property name="mapperInterface" value="com.nick.spring.mapper.AccountMapper"></property>
-    </bean>
+    <!--<bean id="accountMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>-->
+        <!--<property name="mapperInterface" value="com.nick.spring.mapper.AccountMapper"></property>-->
+    <!--</bean>-->
+
     <!-- 配置Mapper代理对象一: MapperScannerConfigurer -->
     <!--批量代理对象的生成-->
-    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
-        <!--&lt;!&ndash;指定需要生成的接口所在的包名&ndash;&gt;-->
-        <!--<property name="basePackage" value="com.nick.spring.mapper"></property>-->
-        <!--&lt;!&ndash;错误配置 不要配置sqlSessionFactory&ndash;&gt;-->
-    <!--</bean>-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--指定需要生成的接口所在的包名-->
+        <property name="basePackage" value="com.nick.spring.mapper"></property>
+    </bean>
 </beans>

@@ -10,7 +10,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring/application*.xml"})
+//@ContextConfiguration(locations = { "classpath:spring/applicationContext-dao.xml", "classpath:spring/applicationContext-service.xml",
+//		"classpath:spring/applicationContext-tx.xml" })
+@ContextConfiguration(locations =  "classpath:spring/applicationContext-*.xml" )
 public class AccountServiceTest {
 
     @Resource
@@ -18,6 +20,6 @@ public class AccountServiceTest {
 
     @Test
     public void testTransfer(){
-        service.transfer("老公","老婆",10);
+        service.transfer("老公","老婆",100);
     }
 }

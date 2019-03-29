@@ -21,7 +21,7 @@ public class AccountServiceImpl implements AccountService {
         mapper.update(from, fromMoney - money);
 
         //手动制造异常
-        //System.out.println(1/0);
+//        System.out.println(1/0);
         // 先查询from账户的钱
         double toMoney = mapper.queryMoney(to);
         // 对to账户进行加钱操作
