@@ -26,4 +26,11 @@ public class ItemServiceImpl implements ItemService {
         List<Item> items = itemMapper.selectByExample(itemExample);
         return items;
     }
+
+    @Override
+    public Item queryItemById(Integer id) {
+        if(id == null)
+            return null;
+        return itemMapper.selectByPrimaryKey(id);
+    }
 }
