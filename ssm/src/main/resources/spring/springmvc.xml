@@ -35,13 +35,13 @@
         <property name="converters">
             <set>
                 <!-- 自定义日期类型转换器 -->
-                <bean class="com.nick.ssm.controller.converter.DateConverter"></bean>
+                <!--<bean class="com.nick.ssm.controller.converter.DateConverter"></bean>-->
             </set>
         </property>
     </bean>
 
     <!-- 配置异常处理器 -->
-    <bean class="com.nick.ssm.exception.resolver.CustomExceptionResolver"></bean>
+    <!--<bean class="com.nick.ssm.exception.resolver.CustomExceptionResolver"></bean>-->
 
     <!-- 配置多部件解析器 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
