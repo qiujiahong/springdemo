@@ -1,1 +1,2 @@
-https://blog.csdn.net/jz_say/article/details/80084957
+https://github.com/doitanyway/notes-everything/blob/master/docs/j2ee/mybatis_generator.md
+
