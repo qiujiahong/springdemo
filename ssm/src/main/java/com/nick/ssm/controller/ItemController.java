@@ -3,10 +3,12 @@ package com.nick.ssm.controller;
 
 import com.nick.ssm.po.Item;
 import com.nick.ssm.service.ItemService;
+import com.nick.ssm.vo.ItemQueryVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
+@RequestMapping(value="item",produces = "application/json;charset=utf8")
 @Controller
 public class ItemController {
 
@@ -57,5 +60,32 @@ public class ItemController {
         return item;
     }
 
+    //http://localhost:8080/ssm/item/findItem?id=1
+    @ResponseBody
+    @RequestMapping("findItem")
+//    public String findItem( Integer id){  //参数一致可以直接写，不一致可以加注解翻译
+//        return "接收到的参数是:"+id;
+//    }
+    //http://localhost:8080/ssm/item/findItem?itemId=1
+//    public String findItem(@RequestParam("itemId") Integer id){
+//        return "接收到的参数是:"+id;
+//    }
 
+    public String findItem(@RequestParam(value = "itemId",required = false,defaultValue = "8") Integer id){
+        return "接收到的参数是:"+id;
+    }
+
+    //http://localhost:8080/ssm/item/updateItem?id=1&name=iphone&price=100
+    @RequestMapping("updateItem")
+    @ResponseBody
+    public Item updateItem(Integer id ,String name,Double price,Item item){
+        return item;
+    }
+
+    //http://localhost:8080/ssm/item/queryItem1?item.id=1&item.name=iphone&item.price=1000
+    @ResponseBody
+    @RequestMapping("queryItem1")
+    public Item queryItem1(ItemQueryVO vo){
+        return vo.getItem();
+    }
 }

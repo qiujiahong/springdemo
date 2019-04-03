@@ -33,4 +33,15 @@ public class ItemServiceImpl implements ItemService {
             return null;
         return itemMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public void updateItem(Item item) {
+        if (item == null) {
+            return;
+        }
+        if (item.getId() == null) {
+            return ;
+        }
+        itemMapper.updateByPrimaryKeySelective(item);
+    }
 }
