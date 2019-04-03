@@ -75,6 +75,7 @@ public class ItemController {
         return "接收到的参数是:"+id;
     }
 
+    //传递POJO对象
     //http://localhost:8080/ssm/item/updateItem?id=1&name=iphone&price=100
     @RequestMapping("updateItem")
     @ResponseBody
@@ -82,10 +83,27 @@ public class ItemController {
         return item;
     }
 
+    //传递嵌套pojo对象
     //http://localhost:8080/ssm/item/queryItem1?item.id=1&item.name=iphone&item.price=1000
     @ResponseBody
     @RequestMapping("queryItem1")
     public Item queryItem1(ItemQueryVO vo){
         return vo.getItem();
+    }
+
+    //传递数组
+    //http://localhost:8080/ssm/item/deleteItem?id=1&id=2&id=3
+    @ResponseBody
+    @RequestMapping("deleteItem")
+    public Integer[] deleteItem(Integer[] id){
+        return id;
+    }
+
+    //传递pojo数组
+    //http://localhost:8080/ssm/item/batchUpdateItem?itemList[0].id=1&itemList[0].name=iphone&itemList[0].price=100&itemList[1].id=2&itemList[1].name=hua wei&itemList[1].price=200
+    @ResponseBody
+    @RequestMapping("batchUpdateItem")
+    public ItemQueryVO  batchUpdateItem(ItemQueryVO vo){
+        return vo;
     }
 }
