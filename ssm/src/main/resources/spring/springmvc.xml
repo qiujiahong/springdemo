@@ -35,7 +35,7 @@
         <property name="converters">
             <set>
                 <!-- 自定义日期类型转换器 -->
-                <!--<bean class="com.nick.ssm.controller.converter.DateConverter"></bean>-->
+                <bean class="com.nick.ssm.controller.converter.DateConverter"></bean>
             </set>
         </property>
     </bean>

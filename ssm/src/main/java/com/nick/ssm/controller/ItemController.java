@@ -5,6 +5,7 @@ import com.nick.ssm.po.Item;
 import com.nick.ssm.service.ItemService;
 import com.nick.ssm.vo.ItemQueryVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 
@@ -21,11 +23,11 @@ import java.util.List;
 public class ItemController {
 
     @Autowired
-    private ItemService itemService;
+    private ItemService service;
 
     //    @RequestMapping("queryItem")
 //    public ModelAndView queryItem(){
-//        List<Item> itemList = itemService.queryItemList();
+//        List<Item> itemList = service.queryItemList();
 //        ModelAndView modelAndView= new ModelAndView();
 //        modelAndView.addObject("itemList",itemList);
 //        modelAndView.setViewName("item/item-list");
@@ -33,7 +35,7 @@ public class ItemController {
 //    }
     @RequestMapping("queryItem")
     public String queryItem(HttpServletRequest request , Model model) {
-        List<Item> itemList = itemService.queryItemList();
+        List<Item> itemList = service.queryItemList();
         model.addAttribute("itemList",itemList);
         return "item/item-list";
         //    return "redirect:testRedirect";   //重定向  浏览器URL发生改变，Request域不能共享
@@ -56,7 +58,7 @@ public class ItemController {
     @ResponseBody
     @RequestMapping("queryItemById")
     public Item queryItemById(){
-        Item item =  itemService.queryItemById(1);
+        Item item =  service.queryItemById(1);
         return item;
     }
 
@@ -105,5 +107,14 @@ public class ItemController {
     @RequestMapping("batchUpdateItem")
     public ItemQueryVO  batchUpdateItem(ItemQueryVO vo){
         return vo;
+    }
+
+
+    //自定义转换器
+    //http://localhost:8080/ssm/item/saveItem?date=2018-12-10
+    @RequestMapping("saveItem")
+    @ResponseBody
+    public Date saveItem(@DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        return date;
     }
 }
