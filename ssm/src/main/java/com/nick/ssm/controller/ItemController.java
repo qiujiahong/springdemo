@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -73,8 +74,8 @@ public class ItemController {
     }
 
     //http://localhost:8080/ssm/item/findItem?id=1
-    @ResponseBody
-    @RequestMapping("findItem")
+//    @ResponseBody
+//    @RequestMapping("findItem")
 //    public String findItem( Integer id){  //参数一致可以直接写，不一致可以加注解翻译
 //        return "接收到的参数是:"+id;
 //    }
@@ -83,9 +84,10 @@ public class ItemController {
 //        return "接收到的参数是:"+id;
 //    }
 
-    public String findItem(@RequestParam(value = "itemId",required = false,defaultValue = "8") Integer id){
-        return "接收到的参数是:"+id;
-    }
+    //http://localhost:8080/ssm/item/findItem?itemId=1
+//    public String findItem(@RequestParam(value = "itemId",required = false,defaultValue = "8") Integer id){
+//        return "接收到的参数是:"+id;
+//    }
 
     //传递POJO对象
     //http://localhost:8080/ssm/item/updateItem?id=1&name=iphone&price=100
@@ -98,11 +100,17 @@ public class ItemController {
 //    http://localhost:8080/ssm/item/showEdit?id=1
     @RequestMapping("showEdit")
     public String showEdit(Integer id,Model model) {
-        Item item = service.queryItemById(id);
+        try{
 
-        model.addAttribute("item", item);
+            Item item = service.queryItemById(id);
 
-        return "item/item-edit";
+            model.addAttribute("item", item);
+
+            return "item/item-edit";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
     @RequestMapping("updateItem")
     @ResponseBody
@@ -166,5 +174,22 @@ public class ItemController {
     @ResponseBody
     public Date saveItem(@DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         return date;
+    }
+
+
+
+    //ResponseBody -- 请求是json
+    //RequestBody  -- 响应是json
+    //客户端保证发送的数据是json数据需要传送contentType: 'application/json;charset=utf-8'
+    @ResponseBody
+    @RequestMapping("/requetstJson")
+    public Item requestJson(@RequestBody Item item){
+        return item;
+    }
+
+    @RequestMapping("findItem")
+    @ResponseBody
+    public Item findItem( Integer id) {
+        return service.queryItemById(id);
     }
 }

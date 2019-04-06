@@ -8,6 +8,8 @@ create table `item`(
 	`detail` VARCHAR(100),
 	PRIMARY KEY (`id`)
 );
+insert into item (`id`,name,price,pic,`createtime`,detail) values
+ (1,'nick',1.2,'','2018-09-12 10:00:00','我不知道')
 
 
 
