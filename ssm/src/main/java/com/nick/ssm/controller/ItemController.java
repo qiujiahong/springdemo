@@ -12,11 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 
 @RequestMapping(value="item",produces = "application/json;charset=utf8")
@@ -46,6 +49,8 @@ public class ItemController {
         //    return "redirect:testRedirect";   //重定向  浏览器URL发生改变，Request域不能共享
     //    return "forward:testForward";     //转发  Request域共享
     }
+
+
 
     @RequestMapping("testRedirect")
     public String testRedirect(HttpServletRequest request ) {
@@ -84,9 +89,49 @@ public class ItemController {
 
     //传递POJO对象
     //http://localhost:8080/ssm/item/updateItem?id=1&name=iphone&price=100
+//    @RequestMapping("updateItem")
+//    @ResponseBody
+//    public Item updateItem(Integer id ,String name,Double price,Item item){
+//        return item;
+//    }
+
+//    http://localhost:8080/ssm/item/showEdit?id=1
+    @RequestMapping("showEdit")
+    public String showEdit(Integer id,Model model) {
+        Item item = service.queryItemById(id);
+
+        model.addAttribute("item", item);
+
+        return "item/item-edit";
+    }
     @RequestMapping("updateItem")
     @ResponseBody
-    public Item updateItem(Integer id ,String name,Double price,Item item){
+    public Item updateItem(Integer id, String name, Float price, Item item, MultipartFile pictureFile) throws Exception{
+        if (pictureFile != null) {
+            //获取上传文件名称
+            String originalFilename = pictureFile.getOriginalFilename();
+            if (originalFilename != null && !"".contentEquals(originalFilename)) {
+                //获取扩展名
+                String extName = originalFilename.substring(originalFilename.lastIndexOf("."));
+                //重新生成一个文件名称
+                String newFileName = UUID.randomUUID().toString()+extName;
+                //指定存储文件的根目录
+                String baseDir="E:\\07-upload\\temp\\";
+                File dirFile=new File(baseDir);
+                if (!dirFile.exists()) {
+                    dirFile.mkdirs();
+                }
+                //将上传的文件复制到新的文件(完整路径)中
+                pictureFile.transferTo(new File(baseDir + newFileName));
+
+                //保存文件路径
+                item.setPic(newFileName);
+            }
+        }
+
+        //商品修改
+        service.updateItem(item);
+
         return item;
     }
 
