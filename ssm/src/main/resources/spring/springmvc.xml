@@ -52,6 +52,22 @@
     <!--静态支援-->
     <!--location本地资源路径/-相当于webapp, mapping网络请求路径-->
     <mvc:resources location="/img/"  mapping="/img/**"></mvc:resources>
-    <mvc:resources location="/css/"  mapping="/css/**"></mvc:resources>
-    <mvc:resources location="/js/"  mapping="/js/**"></mvc:resources>
+    <!--<mvc:resources location="/css/"  mapping="/css/**"></mvc:resources>-->
+    <!--<mvc:resources location="/js/"  mapping="/js/**"></mvc:resources>-->
+
+
+    <mvc:interceptors>
+        <!-- 公共拦截器可以拦截所有请求，而且可以有多个 -->
+        <bean class="com.nick.ssm.interceptor.HandlerIntercepter1" />
+        <!--<bean class="com.kkb.ssm.interceptor.MyHandlerInterceptor2" />-->
+        <!-- 如果有多个拦截器，则按照顺序进行配置 -->
+        <mvc:interceptor>
+            <!-- /**表示所有URL和子URL路径 -->
+            <mvc:mapping path="/test/**" />
+            <!-- 特定请求的拦截器只能有一个 -->
+            <bean class="com.nick.ssm.interceptor.HandlerIntercepter2" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
 </beans>

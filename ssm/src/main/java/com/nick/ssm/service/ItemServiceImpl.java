@@ -44,4 +44,9 @@ public class ItemServiceImpl implements ItemService {
         }
         itemMapper.updateByPrimaryKeySelective(item);
     }
+
+    @Override
+    public void login(String str) {
+        System.out.println("login:"+str);
+    }
 }
