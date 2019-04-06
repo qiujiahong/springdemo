@@ -1,6 +1,7 @@
 package com.nick.ssm.controller;
 
 
+import com.nick.ssm.exception.CustomExcetion;
 import com.nick.ssm.po.Item;
 import com.nick.ssm.service.ItemService;
 import com.nick.ssm.vo.ItemQueryVO;
@@ -34,9 +35,13 @@ public class ItemController {
 //        return modelAndView;
 //    }
     @RequestMapping("queryItem")
-    public String queryItem(HttpServletRequest request , Model model) {
+    public String queryItem(HttpServletRequest request , Model model) throws CustomExcetion {
         List<Item> itemList = service.queryItemList();
         model.addAttribute("itemList",itemList);
+        if (itemList.size() < 10) {
+            throw new CustomExcetion("我是自定义异常类");
+        }
+        System.out.println("执行...");
         return "item/item-list";
         //    return "redirect:testRedirect";   //重定向  浏览器URL发生改变，Request域不能共享
     //    return "forward:testForward";     //转发  Request域共享
