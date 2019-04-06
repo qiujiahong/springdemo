@@ -45,7 +45,6 @@ public class TestMockMVC {
         //andExpect判断请求是否成功
         //        MockMvcResultMatchers.view().name()
         //andDo 对请求结果进行输出
-
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/item/showEdit").param("id", "1"))
                 .andExpect(MockMvcResultMatchers.view().name("item/showEdit"))
 //                .andExpect(MockMvcResultMatchers.view().name("item/item-edit"))
