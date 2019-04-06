@@ -1,6 +1,7 @@
 package com.nick.ssm.controller;
 
 
+import com.jayway.jsonpath.JsonPath;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,17 +61,21 @@ public class TestMockMVC {
         // 通过perform去发送一个HTTP请求
         // andExpect：通过该方法，判断请求执行是否成功
         // andDo :对请求之后的结果进行输出
-        String responseString  = mockMvc.perform(
+        MvcResult result   = mockMvc.perform(
                 MockMvcRequestBuilders.get("/item/findItem")
                         .contentType(MediaType.APPLICATION_JSON)
                 .param("id", "1")
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("nick我是"))
                 .andDo(MockMvcResultHandlers.print())
-                .andReturn().getResponse().getContentAsString();
+                .andReturn();
 
-        System.out.println("================================");
-        System.out.println(responseString);
+        System.out.println("1.================================");
+
+        Integer id = JsonPath.read(result.getResponse().getContentAsString(),"$.id");
+        System.out.println(result.getResponse().getContentAsString());
+        System.out.println("id:" + id);
     }
 }
